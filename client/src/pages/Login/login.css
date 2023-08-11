@@ -1,0 +1,52 @@
+.login__container,
+.register__container {
+  width: 40%;
+  margin: auto;
+  border: 2px solid var(--black-color);
+  border-radius: 3px;
+  background-color: rgb(14, 234, 131);
+}
+
+.login__title,
+.register__title {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.login__form,
+.register__form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.form__group {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+}
+
+.form__label {
+  margin-right: 12px;
+}
+
+.form__input {
+  padding: 10px;
+}
+
+.form-submit__btn {
+  padding: 10px 0;
+  width: 20%;
+  margin: 28px auto;
+  background-color: var(--green-color);
+  color: var(--white-color);
+  border: 2px solid greenyellow;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.form-submit__btn:hover {
+  background-color: rgb(137, 218, 32);
+}

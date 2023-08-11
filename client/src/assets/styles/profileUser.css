@@ -1,0 +1,41 @@
+@import "./globalStyle.css";
+
+.profile {
+  position: relative;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--black-color);
+  background-color: var(--gray-color);
+  border-radius: 3px;
+}
+
+.profile__avatar {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  object-position: 25% 25%;
+  border-radius: 50%;
+}
+
+.profile__name {
+  margin-top: 0.8rem;
+}
+
+.profile__slogan {
+  color: var(--black-color);
+  line-height: 1.5;
+  font-family: monospace;
+  font-style: italic;
+}
+
+.avatar-edit__label {
+  position: absolute;
+  right: 20%;
+  bottom: 40%;
+  border: none;
+  color: rgb(44, 136, 248);
+  background-color: #eee;
+  padding: 1px 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}

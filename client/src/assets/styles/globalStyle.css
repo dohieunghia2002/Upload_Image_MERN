@@ -1,0 +1,22 @@
+:root {
+  --primary-color: rgb(49, 49, 216);
+  --primary-light-color: rgb(68, 68, 216);
+  --aqua-color: rgb(128, 194, 248);
+  --aqua-light-color: rgb(150, 203, 246);
+  --white-color: #fff;
+  --dark-color: #000;
+  --black-color: #333;
+  --black-light-color: #555555;
+  --gray-color: rgb(234, 221, 221);
+  --green-color: rgb(3, 193, 3);
+}
+
+.App,
+.user__bg,
+.profile,
+.upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
