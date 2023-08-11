@@ -63,7 +63,10 @@ const Post = () => {
             <div className="container">
                 {photoList?.slice(IDX_FIRST_PHOTO_PAGE, IDX_LAST_PHOTO_PAGE + 1)?.map((item) => (
                     <div key={item._id} className="item">
-                        <img src={item.link} className="item__img" alt={item.title} />
+                        <img src={item.link} className="item__img" alt={item.title} title={item.title} />
+                        <div className="menu__wrapper">
+                            <i class="fas fa-ellipsis-v menu__icon"></i>
+                        </div>
                     </div>
                 ))}
             </div >
