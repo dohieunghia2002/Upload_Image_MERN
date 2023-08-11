@@ -10,6 +10,7 @@ const QUANTITY_PHOTO_PAGE = 5;
 const Post = () => {
     const user = useSelector((state) => state.user.login.currentUser);
     const imgs = useSelector((state) => state.image.images.allImages);
+    const [openDropMenu, setOpenDropMenu] = useState(0);
     const [curIdxPage, setCurIdxPage] = useState(0);
     const dispatch = useDispatch();
 
@@ -47,9 +48,19 @@ const Post = () => {
         }
     }
 
+    const toggleDropdownMenu = () => {
+        let dropdownContent = document.getElementById(openDropMenu);
+        dropdownContent?.classList.toggle('show');
+        setOpenDropMenu(0);
+    }
+
     useEffect(() => {
         allImages(accessToken, dispatch, axiosJWT);
     }, [curIdxPage]);
+
+    useEffect(() => {
+        toggleDropdownMenu();
+    }, [openDropMenu])
 
 
     return (
@@ -62,12 +73,18 @@ const Post = () => {
 
             <div className="container">
                 {photoList?.slice(IDX_FIRST_PHOTO_PAGE, IDX_LAST_PHOTO_PAGE + 1)?.map((item) => (
+
                     <div key={item._id} className="item">
                         <img src={item.link} className="item__img" alt={item.title} title={item.title} />
-                        <div className="menu__wrapper">
-                            <i class="fas fa-ellipsis-v menu__icon"></i>
+                        <button type="button" className="menu__wrapper dropbtn" onClick={() => setOpenDropMenu(item._id)}>
+                            <i className="fas fa-ellipsis-v menu__icon"></i>
+                        </button>
+                        <div id={item._id} className="dropdown__content">
+                            <button type="button" className="menu-dropdown__btn">Change title</button>
+                            <button type="button" className="menu-dropdown__btn">Delete</button>
                         </div>
                     </div>
+
                 ))}
             </div >
         </>
