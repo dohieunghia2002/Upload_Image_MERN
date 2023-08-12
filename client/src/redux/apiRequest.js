@@ -1,6 +1,6 @@
 import axios from "axios";
 import { loginFailed, loginStart, loginSuccess, registerStart, registerSuccess, registerFailed, logoutStart, logoutFailed, logoutSuccess, updateAvatarFailed, updateAvatarStart, updateAvatarSuccess } from "./userSlice";
-import { getImgFailed, getImgStart, getImgSuccess, uploadFailed, uploadStart, uploadSuccess } from "./imageSlice";
+import { destroyFailed, destroySuccess, getImgFailed, getImgStart, getImgSuccess, uploadFailed, uploadStart, uploadSuccess } from "./imageSlice";
 
 export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginStart());
@@ -83,11 +83,24 @@ export const uploadImages = async (accessToken, form, dispatch, axiosJWT) => {
     }
 }
 
+export const removeImage = async (accessToken, id, dispatch, axiosJWT) => {
+    dispatch(destroySuccess());
+    try {
+        const headerConfig = {
+            authorization: `Bearer ${accessToken}`
+        }
+        const res = await axiosJWT.delete(`http://localhost:3001/image/${id}`, { headers: headerConfig });
+        await dispatch(destroySuccess(res.data));
+        window.location.reload();
+    } catch {
+        dispatch(destroyFailed());
+    }
+}
+
 export const updateAvatar = async (form, dispatch, axiosJWT) => {
     dispatch(updateAvatarStart());
     try {
         const res = await axiosJWT.patch('http://localhost:3001/image/avatar/change', form);
-        console.log(res.data);
         await dispatch(updateAvatarSuccess(res.data));
         window.location.reload();
     } catch {

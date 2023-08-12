@@ -55,7 +55,7 @@ const ProfileUser = () => {
             </label>
             <input type="file" id="avatar-edit__input" hidden onChange={changeAvatar} />
             <h3 className="profile__name">{user?.fullName}</h3>
-            <p className="profile__slogan">{user?.slogan}.</p>
+            <p className="profile__slogan">Hello World!.</p>
         </div>
     );
 }

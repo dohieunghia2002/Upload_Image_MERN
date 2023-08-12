@@ -7,9 +7,15 @@ import { connectDB } from './config/db.js';
 import userRouter from './routes/user.route.js';
 import adminRouter from './routes/admin.route.js';
 import imageRouter from './routes/image.route.js';
-
+import { v2 as cloudinary } from 'cloudinary';
 
 dotenv.config();
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_KEY,
+    api_secret: process.env.CLOUD_KEY_SECRET,
+    secure: true
+});
 
 const app = express();
 

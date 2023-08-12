@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import '../assets/styles/post.css';
 import { createAxios } from '../../src/createInstance.js';
 import { loginSuccess } from '../redux/userSlice';
-import { allImages } from '../redux/apiRequest';
+import { allImages, removeImage } from '../redux/apiRequest';
+import { destroySuccess } from '../redux/imageSlice';
 
 const QUANTITY_PHOTO_PAGE = 5;
 
 const Post = () => {
     const user = useSelector((state) => state.user.login.currentUser);
     const imgs = useSelector((state) => state.image.images.allImages);
-    const [openDropMenu, setOpenDropMenu] = useState(0);
+    const [openDropMenu, setOpenDropMenu] = useState('');
+    const [idImg, setIdImg] = useState('');
     const [curIdxPage, setCurIdxPage] = useState(0);
     const dispatch = useDispatch();
 
@@ -30,7 +32,6 @@ const Post = () => {
                     <button type="button" key={index} onClick={() => setCurIdxPage(index)}>
                         {index + 1}
                     </button>
-
                 )
             )
         }
@@ -49,9 +50,21 @@ const Post = () => {
     }
 
     const toggleDropdownMenu = () => {
+        let dropdowns = document.getElementsByClassName('dropdown__content');
+        for (let i = 0; i < dropdowns.length; i++) {
+            const element = dropdowns[i];
+            if (element?.classList.contains('show')) {
+                element?.classList.remove('show');
+            }
+        }
+
         let dropdownContent = document.getElementById(openDropMenu);
         dropdownContent?.classList.toggle('show');
-        setOpenDropMenu(0);
+    }
+
+    const deleteImage = async () => {
+        const axiosJWT = createAxios(user, dispatch, destroySuccess);
+        await removeImage(accessToken, idImg, dispatch, axiosJWT);
     }
 
     useEffect(() => {
@@ -59,32 +72,33 @@ const Post = () => {
     }, [curIdxPage]);
 
     useEffect(() => {
+        deleteImage();
+    }, [idImg]);
+
+    useEffect(() => {
         toggleDropdownMenu();
-    }, [openDropMenu])
+    }, [openDropMenu]);
 
 
     return (
         <>
-            <div className="pagination">
+            {photoList?.length > 0 && <div className="pagination">
                 <button type="button" onClick={idxPrevPage}>&laquo;</button>
                 <HandleSetPagination />
                 <button type="button" onClick={idxNextPage}>&raquo;</button>
-            </div>
+            </div>}
 
             <div className="container">
                 {photoList?.slice(IDX_FIRST_PHOTO_PAGE, IDX_LAST_PHOTO_PAGE + 1)?.map((item) => (
-
                     <div key={item._id} className="item">
-                        <img src={item.link} className="item__img" alt={item.title} title={item.title} />
-                        <button type="button" className="menu__wrapper dropbtn" onClick={() => setOpenDropMenu(item._id)}>
+                        <img src={item.link} className="item__img" alt={item.cloudID} />
+                        <button type="button" className="menu__wrapper dropbtn" onClick={() => openDropMenu != item._id ? setOpenDropMenu(item._id) : setOpenDropMenu('')}>
                             <i className="fas fa-ellipsis-v menu__icon"></i>
                         </button>
                         <div id={item._id} className="dropdown__content">
-                            <button type="button" className="menu-dropdown__btn">Change title</button>
-                            <button type="button" className="menu-dropdown__btn">Delete</button>
+                            <button type="button" className="menu-dropdown__btn" onClick={() => idImg != item._id ? setIdImg(item._id) : setIdImg('')}>Delete</button>
                         </div>
                     </div>
-
                 ))}
             </div >
         </>

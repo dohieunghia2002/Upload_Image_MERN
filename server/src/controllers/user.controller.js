@@ -28,7 +28,7 @@ const generateAccessToken = async (user) => {
     return jwt.sign(
         { id: user._id, isAdmin: user.isAdmin },
         process.env.JWT_ACCESS_KEY,
-        { expiresIn: '60s' }
+        { expiresIn: '2h' }
     );
 }
 

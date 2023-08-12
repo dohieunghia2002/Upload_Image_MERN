@@ -1,5 +1,6 @@
 import Image from "../models/image.model.js";
 import User from '../models/user.model.js';
+import { v2 as cloudinary } from 'cloudinary';
 
 // [GET] /image/
 const imagesAll = async (req, res) => {
@@ -24,7 +25,6 @@ const uploadImg = async (req, res) => {
         }
         else {
             userExist.photo.push(...photo);
-            console.log(userExist.photo);
             await userExist.save();
             return res.status(200).json({ message: 'Add success' });
         }
@@ -33,6 +33,7 @@ const uploadImg = async (req, res) => {
     }
 }
 
+// [PATCH] /image/avatar/change
 const changeAvatar = async (req, res) => {
     const { userID, avatar } = req.body;
     try {
@@ -43,4 +44,30 @@ const changeAvatar = async (req, res) => {
     }
 }
 
-export default { uploadImg, imagesAll, changeAvatar };
+//[DELETE] /image/:id
+const deleteImage = async (req, res) => {
+    try {
+        const image = await Image.findOne({ userID: req.user.id });
+
+        let index = 0;
+        for (let i = 0; i < image.photo.length; i++) {
+            let item = image.photo[i];
+            if (item._id == req.params.id) {
+                index = i;
+                break;
+            }
+        }
+        const deleted = image.photo.splice(index, 1);
+
+        let imgId = deleted[0].cloudID;
+        const temp = await cloudinary.uploader.destroy(imgId);
+
+        await image.save();
+        return res.status(200).json(temp);
+
+    } catch {
+        return res.status(500).json({ message: 'Oops! Something wrong' });
+    }
+}
+
+export default { uploadImg, imagesAll, changeAvatar, deleteImage };

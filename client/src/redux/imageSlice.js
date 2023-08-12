@@ -41,7 +41,18 @@ const imageSlice = createSlice({
             state.upload.error = true;
         },
 
-
+        destroyStart: (state) => {
+            state.images.isFeatching = true;
+        },
+        destroySuccess: (state, actions) => {
+            state.images.isFeatching = false;
+            state.images.allImages = actions.payload;
+            state.images.error = false;
+        },
+        destroyFailed: (state) => {
+            state.images.isFeatching = false;
+            state.images.error = true;
+        }
     }
 });
 
@@ -51,7 +62,10 @@ export const {
     getImgFailed,
     uploadStart,
     uploadSuccess,
-    uploadFailed
+    uploadFailed,
+    destroyStart,
+    destroySuccess,
+    destroyFailed
 } = imageSlice.actions;
 
 export default imageSlice.reducer;

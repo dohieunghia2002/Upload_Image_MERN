@@ -18,7 +18,7 @@ const Login = () => {
     const handleCenterForm = () => {
         setScreenHeight(window.innerHeight);
         const loginContainer = document.getElementsByClassName('login__container')[0];
-        const distanceMargin = Math.ceil((screenHeight - 300) / 2);
+        const distanceMargin = Math.ceil((screenHeight - 440) / 2);
         loginContainer.style.marginTop = distanceMargin + 'px';
     }
 

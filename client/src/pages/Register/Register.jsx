@@ -29,7 +29,7 @@ const Register = () => {
     const handleCenterForm = () => {
         setScreenHeight(window.innerHeight);
         const registerContainer = document.getElementsByClassName('register__container')[0];
-        const distanceMargin = Math.ceil((screenHeight - 300) / 2);
+        const distanceMargin = Math.ceil((screenHeight - 440) / 2);
         registerContainer.style.marginTop = distanceMargin + 'px';
     }
 

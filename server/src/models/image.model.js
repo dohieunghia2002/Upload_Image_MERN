@@ -4,7 +4,7 @@ const imageSchema = new mongoose.Schema({
     userID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     photo: [
         {
-            title: { type: String },
+            cloudID: { type: String },
             link: { type: String, required: true }
         }
     ]

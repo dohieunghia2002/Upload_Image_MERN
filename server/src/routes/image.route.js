@@ -4,10 +4,12 @@ import middlewareController from '../controllers/middleware.controller.js';
 
 const router = express.Router();
 
-router.get('/', middlewareController.verifyToken, imageController.imagesAll);
+router.delete('/:id', middlewareController.verifyToken, imageController.deleteImage);
 
 router.post('/upload', middlewareController.verifyToken, imageController.uploadImg);
 
 router.patch('/avatar/change', imageController.changeAvatar);
+
+router.get('/', middlewareController.verifyToken, imageController.imagesAll);
 
 export default router;

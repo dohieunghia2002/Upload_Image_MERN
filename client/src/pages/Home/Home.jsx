@@ -16,7 +16,6 @@ const validFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 const Home = () => {
     const [error, setError] = useState(false);
     const user = useSelector((state) => state.user.login.currentUser);
-    const imgs = useSelector((state) => state.image.images.allImages);
     const accessToken = user?.accessToken;
     const id = user?._id;
 
@@ -53,7 +52,7 @@ const Home = () => {
                     }
                 });
                 var result = {
-                    title: file.name,
+                    cloudID: res.data.public_id,
                     link: res.data.secure_url
                 }
                 links.push(result);
