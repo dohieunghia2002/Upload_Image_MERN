@@ -93,6 +93,7 @@ const login = async (req, res) => {
         await res.cookie('refreshToken', refreshToken, {
             httpOnly: false,
             path: '/',
+            secure: true
         });
 
         user.password = undefined;
