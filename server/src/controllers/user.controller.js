@@ -93,11 +93,12 @@ const login = async (req, res) => {
         await res.cookie('refreshToken', refreshToken, {
             httpOnly: false,
             path: '/',
+            samSite: 'none',
             secure: true
         });
 
         user.password = undefined;
-        return res.status(200).json({ ...user._doc, accessToken });
+        return res.status(200).json({ ...user._doc, accessToken, refreshToken });
     } catch {
         return res.status(500).json({ message: 'Oops! Something wrong' });
     }

@@ -18,6 +18,7 @@ export const loginUser = async (user, dispatch, navigate) => {
             },
         );
         dispatch(loginSuccess(res.data));
+        console.log(res.data);
         navigate('/');
     } catch {
         dispatch(loginFailed());
