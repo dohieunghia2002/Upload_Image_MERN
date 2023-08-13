@@ -123,7 +123,7 @@ const userLogout = async (req, res) => {
 // [GET] /test/cookie
 const test = async (req, res) => {
     try {
-        const temp = req.cookies;
+        const temp = await req.cookies;
         console.log(temp);
         return res.status(200).json(temp);
     } catch {
