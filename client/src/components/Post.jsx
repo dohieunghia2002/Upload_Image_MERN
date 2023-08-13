@@ -25,16 +25,28 @@ const Post = () => {
     const IDX_LAST_PHOTO_PAGE = curIdxPage * QUANTITY_PHOTO_PAGE + (QUANTITY_PHOTO_PAGE - 1);
 
     const HandleSetPagination = () => {
-        const temp = []
+        const temp = [];
         for (let index = 0; index < QUANTITY_BTN_PAGINATION; index++) {
-            temp.push(
-                (
-                    <button type="button" key={index} onClick={() => setCurIdxPage(index)}>
+            if (curIdxPage == index) {
+                const element = (
+                    <button type="button" key={index} className="pagination__btn active" onClick={() => setCurIdxPage(index)}>
                         {index + 1}
                     </button>
                 )
-            )
+                temp.push(element)
+            }
+            else {
+                const element = (
+                    <button type="button" key={index} className="pagination__btn" onClick={() => setCurIdxPage(index)}>
+                        {index + 1}
+                    </button>
+                )
+                temp.push(element)
+            }
         }
+        console.log(temp);
+        // const btnPaginationActive = document.getElementsByClassName('pagination__btn')[curIdxPage];
+        // btnPaginationActive?.classList.add('active');
         return temp;
     }
 
@@ -82,11 +94,13 @@ const Post = () => {
 
     return (
         <>
-            {photoList?.length > 0 && <div className="pagination">
-                <button type="button" onClick={idxPrevPage}>&laquo;</button>
-                <HandleSetPagination />
-                <button type="button" onClick={idxNextPage}>&raquo;</button>
-            </div>}
+            {photoList?.length > 0 && (
+                <div className="pagination">
+                    <button type="button" className="pagination__btn--prev" onClick={idxPrevPage}>&laquo;</button>
+                    <HandleSetPagination />
+                    <button type="button" className="pagination__btn--next" onClick={idxNextPage}>&raquo;</button>
+                </div>
+            )}
 
             <div className="container">
                 {photoList?.slice(IDX_FIRST_PHOTO_PAGE, IDX_LAST_PHOTO_PAGE + 1)?.map((item) => (
