@@ -98,6 +98,8 @@ const login = async (req, res) => {
             secure: true
         });
 
+        console.log(req.cookies);
+
         user.password = undefined;
         return res.status(200).json({ ...user._doc, accessToken, refreshToken });
     } catch {
@@ -122,14 +124,15 @@ const userLogout = async (req, res) => {
     }
 }
 
-// [GET] /admin/user/all
-const getAllUsers = async (req, res) => {
+// [GET] /test/cookie
+const test = async (req, res) => {
     try {
-        const users = await User.find({});
-        return res.status(200).json(users);
+        const temp = req.cookies;
+        console.log(temp);
+        return res.status(200).json(temp);
     } catch {
         return res.status(500).json({ message: 'Oops! Something wrong' });
     }
 }
 
-export default { register, login, requestRefreshToken, userLogout, getAllUsers };
+export default { register, login, requestRefreshToken, userLogout, test };
