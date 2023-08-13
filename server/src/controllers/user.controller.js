@@ -91,11 +91,7 @@ const login = async (req, res) => {
         refreshTokens.push(refreshToken);
 
         await res.cookie('refreshToken', refreshToken, {
-            httpOnly: false,
-            domain: 'http://localhost:3000',
-            path: '/',
-            samSite: 'none',
-            secure: true
+            domain: 'https://upload-image-server.onrender.com'
         });
 
         console.log(req.cookies);
