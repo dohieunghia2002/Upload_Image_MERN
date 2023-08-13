@@ -2,12 +2,6 @@
 import User from '../models/user.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import express from 'express';
-import cookieParser from 'cookie-parser';
-
-const app = express();
-
-app.use(cookieParser());
 
 let refreshTokens = [];
 
@@ -96,7 +90,9 @@ const login = async (req, res) => {
         const refreshToken = await generateRefreshToken(user);
         refreshTokens.push(refreshToken);
 
-        await res.cookie('refreshToken', refreshToken);
+        await res.cookie('refreshToken', refreshToken, {
+            sameSite: "none"
+        });
 
         user.password = undefined;
         return res.status(200).json({ ...user._doc, accessToken, refreshToken });

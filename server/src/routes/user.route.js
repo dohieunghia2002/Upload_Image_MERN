@@ -1,10 +1,7 @@
 import express from 'express';
 import userController from '../controllers/user.controller.js';
-import cookieParser from 'cookie-parser';
 
-const app = express();
 const router = express.Router();
-app.use(cookieParser());
 
 router.post('/auth/register', userController.register);
 
