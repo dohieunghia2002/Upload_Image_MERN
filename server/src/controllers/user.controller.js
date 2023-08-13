@@ -92,6 +92,7 @@ const login = async (req, res) => {
 
         await res.cookie('refreshToken', refreshToken, {
             httpOnly: false,
+            domain: 'http://localhost:3000',
             path: '/',
             samSite: 'none',
             secure: true
