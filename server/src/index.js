@@ -24,6 +24,7 @@ app.use(
         credentials: true,
     })
 );
+
 app.options(
     '*',
     cors({
@@ -33,21 +34,21 @@ app.options(
     })
 );
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.static('public'));
 app.use(urlencoded({ extended: false }));
-app.use(cookieParser());
 
 connectDB();
 const port = process.env.PORT || 3001;
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
 // Routes
 app.use('/user', userRouter);
 app.use('/image', imageRouter);
+
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

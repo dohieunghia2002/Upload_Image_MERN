@@ -90,11 +90,7 @@ const login = async (req, res) => {
         const refreshToken = await generateRefreshToken(user);
         refreshTokens.push(refreshToken);
 
-        await res.cookie('refreshToken', refreshToken, {
-            domain: 'https://upload-image-server.onrender.com'
-        });
-
-        console.log(req.cookies);
+        await res.cookie('refreshToken', refreshToken);
 
         user.password = undefined;
         return res.status(200).json({ ...user._doc, accessToken, refreshToken });
@@ -123,7 +119,7 @@ const userLogout = async (req, res) => {
 // [GET] /test/cookie
 const test = async (req, res) => {
     try {
-        const temp = await req.cookies;
+        const temp = await req.cookies.refreshToken;
         console.log(temp);
         return res.status(200).json(temp);
     } catch {
