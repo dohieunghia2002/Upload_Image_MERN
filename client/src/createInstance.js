@@ -4,12 +4,11 @@ import jwtDecode from "jwt-decode";
 const refreshToken = async (id) => {
     try {
         const res = await axios.post(
-            'http://localhost:3001/user/auth/refresh', id,
+            `${process.env.REACT_APP_SERVER_LINK}/user/auth/refresh`, id,
             {
                 withCredentials: true
             },
         );
-        console.log(res.data, 'refreshToken');
         return res.data;
     } catch (err) {
         console.log(err);

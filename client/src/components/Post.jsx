@@ -44,9 +44,6 @@ const Post = () => {
                 temp.push(element)
             }
         }
-        console.log(temp);
-        // const btnPaginationActive = document.getElementsByClassName('pagination__btn')[curIdxPage];
-        // btnPaginationActive?.classList.add('active');
         return temp;
     }
 

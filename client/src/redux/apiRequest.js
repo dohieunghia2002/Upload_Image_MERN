@@ -10,7 +10,7 @@ export const loginUser = async (user, dispatch, navigate) => {
             'Content-Type': 'application/json',
         }
         const res = await axios.post(
-            'http://localhost:3001/user/auth/login', user,
+            `${process.env.REACT_APP_SERVER_LINK}/user/auth/login`, user,
             {
                 withCredentials: true,
                 headers: headerConfig
@@ -26,8 +26,7 @@ export const loginUser = async (user, dispatch, navigate) => {
 export const registerUser = async (user, dispatch, navigate) => {
     dispatch(registerStart());
     try {
-        const res = await axios.post('http://localhost:3001/user/auth/register', user);
-        console.log(res);
+        const res = await axios.post(`${process.env.REACT_APP_SERVER_LINK}/user/auth/register`, user);
         dispatch(registerSuccess());
         navigate('/login');
     } catch {
@@ -42,7 +41,7 @@ export const logoutUser = async (dispatch, navigate, id, accessToken, axiosJWT) 
             authorization: `Bearer ${accessToken}`
         }
         await axiosJWT.post(
-            'http://localhost:3001/user/logout', id,
+            `${process.env.REACT_APP_SERVER_LINK}/user/logout`, id,
             {
                 withCredentials: true,
                 headers: headerConfig
@@ -62,7 +61,7 @@ export const allImages = async (accessToken, dispatch, axiosJWT) => {
         const headerConfig = {
             'authorization': `Bearer ${accessToken}`
         }
-        const res = await axiosJWT.get('http://localhost:3001/image/', { headers: headerConfig });
+        const res = await axiosJWT.get(`${process.env.REACT_APP_SERVER_LINK}/image/`, { headers: headerConfig });
         dispatch(getImgSuccess(res.data));
     } catch {
         dispatch(getImgFailed());
@@ -75,7 +74,7 @@ export const uploadImages = async (accessToken, form, dispatch, axiosJWT) => {
         const headerConfig = {
             authorization: `Bearer ${accessToken}`
         }
-        const res = await axiosJWT.post('http://localhost:3001/image/upload', form, { headers: headerConfig });
+        const res = await axiosJWT.post(`${process.env.REACT_APP_SERVER_LINK}/image/upload`, form, { headers: headerConfig });
         await dispatch(uploadSuccess());
         window.location.reload();
     } catch {
@@ -89,7 +88,7 @@ export const removeImage = async (accessToken, id, dispatch, axiosJWT) => {
         const headerConfig = {
             authorization: `Bearer ${accessToken}`
         }
-        const res = await axiosJWT.delete(`http://localhost:3001/image/${id}`, { headers: headerConfig });
+        const res = await axiosJWT.delete(`${process.env.REACT_APP_SERVER_LINK}/image/${id}`, { headers: headerConfig });
         await dispatch(destroySuccess(res.data));
         window.location.reload();
     } catch {
@@ -100,7 +99,7 @@ export const removeImage = async (accessToken, id, dispatch, axiosJWT) => {
 export const updateAvatar = async (form, dispatch, axiosJWT) => {
     dispatch(updateAvatarStart());
     try {
-        const res = await axiosJWT.patch('http://localhost:3001/image/avatar/change', form);
+        const res = await axiosJWT.patch(`${process.env.REACT_APP_SERVER_LINK}/image/avatar/change`, form);
         await dispatch(updateAvatarSuccess(res.data));
         window.location.reload();
     } catch {
