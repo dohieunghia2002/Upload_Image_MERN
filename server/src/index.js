@@ -1,7 +1,7 @@
 import express, { urlencoded } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import * as cookieParser from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 import { connectDB } from './config/db.js';
 import userRouter from './routes/user.route.js';
 import imageRouter from './routes/image.route.js';
