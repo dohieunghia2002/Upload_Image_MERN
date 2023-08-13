@@ -63,8 +63,7 @@ const requestRefreshToken = async (req, res) => {
             refreshTokens.push(newRefreshToken);
             await res.cookie('refreshToken', newRefreshToken, {
                 httpOnly: false,
-                path: '/',
-                sameSite: 'strict'
+                path: '/'
             });
             return res.status(200).json({ accessToken: newAccessToken });
         });
@@ -92,9 +91,8 @@ const login = async (req, res) => {
         refreshTokens.push(refreshToken);
 
         await res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            // path: '/',
-            sameSite: 'none'
+            httpOnly: false,
+            path: '/',
         });
 
         user.password = undefined;

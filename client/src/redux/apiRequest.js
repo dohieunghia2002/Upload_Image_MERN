@@ -11,6 +11,7 @@ export const loginUser = async (user, dispatch, navigate) => {
         }
         const res = await axios.post(
             `${process.env.REACT_APP_SERVER_LINK}/user/auth/login`, user,
+            // `http://localhost:3001/user/auth/login`, user,
             {
                 withCredentials: true,
                 headers: headerConfig
@@ -42,6 +43,7 @@ export const logoutUser = async (dispatch, navigate, id, accessToken, axiosJWT) 
         }
         await axiosJWT.post(
             `${process.env.REACT_APP_SERVER_LINK}/user/logout`, id,
+            // `http://localhost:3001/user/logout`, id,
             {
                 withCredentials: true,
                 headers: headerConfig
