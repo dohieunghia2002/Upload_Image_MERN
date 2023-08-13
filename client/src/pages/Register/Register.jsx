@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import '../Login/login.css';
 import { registerUser } from '../../redux/apiRequest';
 import { useNavigate, Link } from 'react-router-dom';
 
 const formHeight = {
-    minHeight: "300px"
+    maxHeight: "310px"
 }
 
 const Register = () => {
-    const [screenHeight, setScreenHeight] = useState(1);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
@@ -25,17 +24,6 @@ const Register = () => {
         }
         registerUser(newUser, dispatch, navigate);
     }
-
-    const handleCenterForm = () => {
-        setScreenHeight(window.innerHeight);
-        const registerContainer = document.getElementsByClassName('register__container')[0];
-        const distanceMargin = Math.ceil((screenHeight - 440) / 2);
-        registerContainer.style.marginTop = distanceMargin + 'px';
-    }
-
-    useEffect(() => {
-        handleCenterForm();
-    }, [screenHeight]);
 
     return (
         <section className="register__container" style={{ ...formHeight }} onSubmit={handleRegister}>
@@ -56,7 +44,7 @@ const Register = () => {
                 <button type="submit" className="form-submit__btn">Submit</button>
             </form>
 
-            <p style={{ textAlign: 'center', marginBottom: '1rem' }}>
+            <p className="auth__link">
                 <Link to="/login">Comeback login</Link>
             </p>
         </section>

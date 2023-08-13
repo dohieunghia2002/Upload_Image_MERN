@@ -1,26 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './login.css';
 import { loginUser } from '../../redux/apiRequest.js';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 
 const formHeight = {
-    minHeight: "300px"
+    maxHeight: "310px"
 }
 
 const Login = () => {
-    const [screenHeight, setScreenHeight] = useState(1);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const handleCenterForm = () => {
-        setScreenHeight(window.innerHeight);
-        const loginContainer = document.getElementsByClassName('login__container')[0];
-        const distanceMargin = Math.ceil((screenHeight - 440) / 2);
-        loginContainer.style.marginTop = distanceMargin + 'px';
-    }
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
@@ -30,10 +22,6 @@ const Login = () => {
         }
         loginUser(newUser, dispatch, navigate);
     }
-
-    useEffect(() => {
-        handleCenterForm();
-    }, [screenHeight]);
 
     return (
         <section className="login__container" style={{ ...formHeight }} onSubmit={handleSubmitForm}>
@@ -50,7 +38,7 @@ const Login = () => {
                 <button type="submit" className="form-submit__btn">Submit</button>
             </form>
 
-            <p style={{ textAlign: 'center', marginBottom: '1rem' }}>
+            <p className="auth__link">
                 Don't have an account?
                 <Link to="/register"> Sign Up</Link>
             </p>
