@@ -2,6 +2,12 @@
 import User from '../models/user.model.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import express from 'express';
+import cookieParser from 'cookie-parser';
+
+const app = express();
+
+app.use(cookieParser());
 
 let refreshTokens = [];
 
