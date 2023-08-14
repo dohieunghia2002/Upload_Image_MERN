@@ -35,10 +35,10 @@ const uploadImg = async (req, res) => {
 
 // [PATCH] /image/avatar/change
 const changeAvatar = async (req, res) => {
-    const { userID, avatar } = req.body;
+    const { userID, avatar, accessToken } = req.body;
     try {
         const user = await User.findByIdAndUpdate(userID, { avatar: avatar }, { new: true });
-        res.status(200).json(user);
+        res.status(200).json({ ...user._doc, accessToken });
     } catch {
         return res.status(500).json({ message: 'Oops! Something wrong' });
     }

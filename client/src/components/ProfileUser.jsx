@@ -41,7 +41,8 @@ const ProfileUser = () => {
 
         const formUpdate = {
             userID: user?._id,
-            avatar: res.data.secure_url
+            avatar: res.data.secure_url,
+            accessToken: user?.accessToken
         }
         await updateAvatar(formUpdate, dispatch, axiosJWT);
     }
