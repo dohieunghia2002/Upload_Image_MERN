@@ -35,10 +35,12 @@ const Login = () => {
                         <label className="form__label" htmlFor="username">Username</label>
                         <input type="text" className="form__input" id="username" placeholder="Enter your username" onChange={(e) => setUsername(e.target.value)} />
                     </div>
+                    <span className="auth__note">*username from 8 to 16 characters</span>
                     <div className="form__group">
                         <label className="form__label" htmlFor="password">Password</label>
                         <input type="password" className="form__input" id="password" placeholder="Enter your password" onChange={(e) => setPassword(e.target.value)} />
                     </div>
+                    <span className="auth__note">*password from 8 to 16 characters</span>
                     <button type="submit" className="form-submit__btn">Submit</button>
                 </form>
 

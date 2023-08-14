@@ -58,6 +58,11 @@
   margin-top: 1rem;
 }
 
+.auth__note {
+  font-size: small;
+  margin-left: 14%;
+}
+
 @media (min-width: 740px) and (max-width: 1023px) {
   .login__container,
   .register__container {
@@ -75,6 +80,10 @@
 
   .form-submit__btn {
     width: 26%;
+  }
+
+  .auth__link {
+    margin-top: 0.5rem;
   }
 }
 
