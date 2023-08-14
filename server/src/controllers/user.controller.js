@@ -96,7 +96,7 @@ const login = async (req, res) => {
         });
 
         user.password = undefined;
-        return res.status(200).json({ ...user._doc, accessToken, refreshToken });
+        return res.status(200).json({ ...user._doc, accessToken });
     } catch {
         return res.status(500).json({ message: 'Oops! Something wrong' });
     }

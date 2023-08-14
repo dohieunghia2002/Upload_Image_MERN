@@ -78,7 +78,7 @@ const Post = () => {
 
     useEffect(() => {
         allImages(accessToken, dispatch, axiosJWT);
-    }, [curIdxPage]);
+    }, [curIdxPage, user?.avatar]);
 
     useEffect(() => {
         deleteImage();

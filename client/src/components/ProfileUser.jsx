@@ -37,7 +37,6 @@ const ProfileUser = () => {
             userID: user?._id,
             avatar: res.data.secure_url
         }
-        console.log(formUpdate);
         await updateAvatar(formUpdate, dispatch, axiosJWT);
     }
 
