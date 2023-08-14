@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './login.css';
 import { loginUser } from '../../redux/apiRequest.js';
 import { useDispatch } from 'react-redux';
@@ -25,6 +25,16 @@ const Login = () => {
         setLoading(true);
         loginUser(newUser, dispatch, navigate);
     }
+
+    useEffect(() => {
+        const submitBtn = document.getElementsByClassName('form-submit__btn')[0];
+        if (username.length < 8 || password.length < 8) {
+            submitBtn.disabled = true;
+        }
+        else {
+            submitBtn.disabled = false;
+        }
+    }, [username, password]);
 
     return (
         <>
