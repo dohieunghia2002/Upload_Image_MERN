@@ -4,7 +4,7 @@ import '../assets/styles/post.css';
 import { createAxios } from '../../src/createInstance.js';
 import { loginSuccess } from '../redux/userSlice';
 import { allImages, removeImage } from '../redux/apiRequest';
-import { destroySuccess } from '../redux/imageSlice';
+import { destroySuccess, getImgSuccess } from '../redux/imageSlice';
 
 const QUANTITY_PHOTO_PAGE = 5;
 
@@ -77,8 +77,14 @@ const Post = () => {
     }
 
     useEffect(() => {
+        const axiosJWT = createAxios(user, dispatch, getImgSuccess)
         allImages(accessToken, dispatch, axiosJWT);
-    }, [curIdxPage, user?.avatar]);
+    }, [curIdxPage]);
+
+    useEffect(() => {
+        const axiosJWT = createAxios(user, dispatch, getImgSuccess)
+        allImages(accessToken, dispatch, axiosJWT);
+    }, []);
 
     useEffect(() => {
         deleteImage();

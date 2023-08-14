@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import '../assets/styles/profileUser.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { updateAvatar } from '../redux/apiRequest';
 import { createAxios } from '../createInstance.js';
@@ -8,7 +8,10 @@ import { updateAvatarSuccess } from '../redux/userSlice.js';
 import axios from 'axios';
 
 
+const validFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+
 const ProfileUser = () => {
+    const [err, setErr] = useState(false);
     const user = useSelector((state) => state.user.login.currentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -16,6 +19,9 @@ const ProfileUser = () => {
 
     const changeAvatar = async () => {
         const file = document.getElementById('avatar-edit__input').files[0];
+        if (!validFileTypes.includes(file.type)) {
+            setErr(true);
+        }
         const CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
         const PRESET_NAME = process.env.REACT_APP_PRESET_NAME;
         const FOLDER_NAME = process.env.REACT_APP_FOLDER_NAME;
@@ -52,7 +58,8 @@ const ProfileUser = () => {
             <label type='file' className="avatar-edit__label" htmlFor="avatar-edit__input">
                 <i className="fas fa-pen"></i>
             </label>
-            <input type="file" id="avatar-edit__input" hidden onChange={changeAvatar} />
+            {err && <p>Error: File must be in JPG/PNG format</p>}
+            <input type="file" id="avatar-edit__input" hidden accept="image/png, image/jpeg, image/jpg" onChange={changeAvatar} />
             <h3 className="profile__name">{user?.fullName}</h3>
             <p className="profile__slogan">Hello World!.</p>
         </div>

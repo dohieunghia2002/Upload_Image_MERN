@@ -86,7 +86,7 @@ const Home = () => {
                 <ProfileUser />
 
                 <div className="upload">
-                    <input type="file" className="upload__input" id="upload__input" hidden multiple onChange={handleSubmitImg} />
+                    <input type="file" className="upload__input" id="upload__input" hidden multiple accept="image/png, image/jpeg, image/jpg" onChange={handleSubmitImg} />
                     <label className="upload__label" htmlFor="upload__input">
                         Upload
                     </label>

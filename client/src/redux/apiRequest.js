@@ -100,9 +100,7 @@ export const updateAvatar = async (form, dispatch, axiosJWT) => {
     dispatch(updateAvatarStart());
     try {
         const res = await axiosJWT.patch(`${process.env.REACT_APP_SERVER_LINK}/image/avatar/change`, form);
-        console.log(res.data);
         await dispatch(updateAvatarSuccess(res.data));
-        window.location.reload();
     } catch {
         dispatch(updateAvatarFailed());
     }
