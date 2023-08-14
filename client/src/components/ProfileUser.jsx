@@ -6,18 +6,21 @@ import { updateAvatar } from '../redux/apiRequest';
 import { createAxios } from '../createInstance.js';
 import { updateAvatarSuccess } from '../redux/userSlice.js';
 import axios from 'axios';
+import LoadingModal from './Modal/LoadingModal';
 
 
 const validFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 
 const ProfileUser = () => {
     const [err, setErr] = useState(false);
+    const [isLoading, setLoading] = useState(false);
     const user = useSelector((state) => state.user.login.currentUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     let axiosJWT = createAxios(user, dispatch, updateAvatarSuccess);
 
     const changeAvatar = async () => {
+        setLoading(true);
         const file = document.getElementById('avatar-edit__input').files[0];
         if (!validFileTypes.includes(file.type)) {
             setErr(true);
@@ -45,6 +48,7 @@ const ProfileUser = () => {
             accessToken: user?.accessToken
         }
         await updateAvatar(formUpdate, dispatch, axiosJWT);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -54,16 +58,20 @@ const ProfileUser = () => {
     }, []);
 
     return (
-        <div className="profile">
-            <img src={user?.avatar} alt="avatar" className="profile__avatar" />
-            <label type='file' className="avatar-edit__label" htmlFor="avatar-edit__input">
-                <i className="fas fa-pen"></i>
-            </label>
-            {err && <p>Error: File must be in JPG/PNG format</p>}
-            <input type="file" id="avatar-edit__input" hidden accept="image/png, image/jpeg, image/jpg" onChange={changeAvatar} />
-            <h3 className="profile__name">{user?.fullName}</h3>
-            <p className="profile__slogan">Hello World!.</p>
-        </div>
+        <>
+            <div className="profile">
+                <img src={user?.avatar} alt="avatar" className="profile__avatar" />
+                <label type='file' className="avatar-edit__label" htmlFor="avatar-edit__input">
+                    <i className="fas fa-pen"></i>
+                </label>
+                {err && <p>Error: File must be in JPG/PNG format</p>}
+                <input type="file" id="avatar-edit__input" hidden accept="image/png, image/jpeg, image/jpg" onChange={changeAvatar} />
+                <h3 className="profile__name">{user?.fullName}</h3>
+                <p className="profile__slogan">Hello World!.</p>
+            </div>
+
+            <LoadingModal isLoading={isLoading} />
+        </>
     );
 }
 

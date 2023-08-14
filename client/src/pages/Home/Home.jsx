@@ -10,11 +10,13 @@ import { logoutSuccess } from '../../redux/userSlice';
 import { uploadSuccess } from '../../redux/imageSlice';
 import { createAxios } from '../../../src/createInstance.js';
 import './home.css';
+import LoadingModal from '../../components/Modal/LoadingModal';
 
 const validFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
 
 const Home = () => {
     const [error, setError] = useState(false);
+    const [isLoading, setLoading] = useState(false);
     const user = useSelector((state) => state.user.login.currentUser);
     const accessToken = user?.accessToken;
     const id = user?._id;
@@ -30,6 +32,7 @@ const Home = () => {
         });
 
         const files = uploadImgInput.files;
+        setLoading(true);
         const CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
         const PRESET_NAME = process.env.REACT_APP_PRESET_NAME;
         const FOLDER_NAME = process.env.REACT_APP_FOLDER_NAME;
@@ -69,6 +72,7 @@ const Home = () => {
 
         const axiosJWT = createAxios(user, dispatch, uploadSuccess);
         await uploadImages(accessToken, images, dispatch, axiosJWT);
+        setLoading(false);
     }
 
     const handleLogout = () => {
@@ -76,26 +80,30 @@ const Home = () => {
     }
 
     return (
-        <div className="page__container">
-            <div className="logout__wrapper">
-                <button type="button" className="logout__btn" onClick={handleLogout}>
-                    Logout
-                </button>
-            </div>
-            <div className="user__bg">
-                <ProfileUser />
-
-                <div className="upload">
-                    <input type="file" className="upload__input" id="upload__input" hidden multiple accept="image/png, image/jpeg, image/jpg" onChange={handleSubmitImg} />
-                    <label className="upload__label" htmlFor="upload__input">
-                        Upload
-                    </label>
-                    {error && <p>Error: File must be in JPG/PNG format</p>}
+        <>
+            <div className="page__container">
+                <div className="logout__wrapper">
+                    <button type="button" className="logout__btn" onClick={handleLogout}>
+                        Logout
+                    </button>
                 </div>
+                <div className="user__bg">
+                    <ProfileUser />
+
+                    <div className="upload">
+                        <input type="file" className="upload__input" id="upload__input" hidden multiple accept="image/png, image/jpeg, image/jpg" onChange={handleSubmitImg} />
+                        <label className="upload__label" htmlFor="upload__input">
+                            Upload
+                        </label>
+                        {error && <p>Error: File must be in JPG/PNG format</p>}
+                    </div>
+                </div>
+
+                <Post />
             </div>
 
-            <Post />
-        </div>
+            <LoadingModal isLoading={isLoading} />
+        </>
     );
 }
 

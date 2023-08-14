@@ -1,7 +1,7 @@
 import './modal.css';
 
 const LoadingModal = (props) => {
-    const { isLoading, setLoading } = props;
+    const { isLoading } = props;
 
     return (
         <div style={{ display: isLoading ? 'flex' : 'none' }} className='modal'>

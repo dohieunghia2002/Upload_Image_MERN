@@ -50,7 +50,7 @@ const Login = () => {
                 </p>
             </section >
 
-            <LoadingModal isLoading={isLoading} setLoading={setLoading} />
+            <LoadingModal isLoading={isLoading} />
         </>
     );
 }
